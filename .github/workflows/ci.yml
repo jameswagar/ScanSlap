@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-test:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - name: Validate scripts and metadata
+        run: |
+          while IFS= read -r -d '' script; do bash -n "$script"; done < <(find scripts -type f -name '*.sh' -print0)
+          plutil -lint Resources/Info.plist
+      - name: Make source tree read-only
+        run: chmod -R a-w Package.swift Sources Resources scripts LICENSE README.md
+      - name: Core regression specifications
+        run: swift run ScanSlapCoreSpec
+      - name: Build application bundle
+        run: ./scripts/build-app.sh
+      - name: Verify application bundle
+        run: |
+          codesign --verify --deep --strict --verbose=2 build/ScanSlap.app
+          test -x build/ScanSlap.app/Contents/MacOS/ScanSlap
+          test -r build/ScanSlap.app/Contents/Resources/LICENSE.txt
+          test ! -w build/ScanSlap.app/Contents/Resources/LICENSE.txt
+          test "$(find build/ScanSlap.app -name '*.nal' -print -quit)" = ""
