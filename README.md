@@ -41,10 +41,14 @@ The following Internet Archive item contains `MacManagerV72L50WW.dmg`, a PFU-sig
 
 <https://archive.org/details/mac-manager-v-72-l-50-ww>
 
-Download either the item ZIP or `MacManagerV72L50WW.dmg`, then run:
+Download either the item ZIP or `MacManagerV72L50WW.dmg` directly from the Internet Archive. Alternatively, use the Internet Archive-generated [BitTorrent file included in this repository](firmware-source/mac-manager-v-72-l-50-ww_archive.torrent). The torrent's SHA-256 is `b3b654b797c2ba124a6a773e71168e2c7dec4c52ab5982d517fb675cedf13fd4`, and its BitTorrent v1 info hash is `bcc39b2e41567c37b4cc3fd4ce92790e5ce930a8`.
+
+After downloading, run the installer against either the Archive ZIP or the downloaded DMG:
 
 ```bash
 ./scripts/install-firmware.sh ~/Downloads/mac-manager-v-72-l-50-ww.zip
+# or, after a BitTorrent download:
+./scripts/install-firmware.sh /path/to/mac-manager-v-72-l-50-ww/MacManagerV72L50WW.dmg
 ```
 
 The installer performs all of these checks before copying anything:
