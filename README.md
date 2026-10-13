@@ -97,7 +97,6 @@ SANE is an external runtime dependency and is invoked through `scanimage`; its s
 ## Known limitations
 
 - Only the S300M USB ID is configured.
-- The physical scanner button does not yet trigger scans while ScanSlap is closed.
 - Deskew and blank-page removal are not yet implemented.
 - Public builds are not Developer ID signed or notarized.
 
